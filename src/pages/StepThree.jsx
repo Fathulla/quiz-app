@@ -1,62 +1,68 @@
-import React, { useState } from "react";
-import { EmojiAnswerItem } from "../components/EmojiAnswerItem";
-import { Header } from "../components/Header";
-import { Indicator } from "../components/Indicator";
-import { LinkButton } from "../components/LinkButton";
+import React, { useState } from 'react';
+import { Indicator } from '../components/UI/indicator';
+import { Heading } from '../components/typography/heading';
+import { LinkButton } from '../components/UI/LinkButton';
+import { ImgVariantWrapper } from '../components/UI/imgVariantWrapper';
 
-const StepThree = () => {
-  const [checkedItem, setCheckedItem] = useState(null)
+function StepThree() {
+  const [checkedAnswer, setCheckedAnswer] = useState(null);
 
-  const answerTypes = [
+  const handleCheck = (answerId) => {
+    setCheckedAnswer(answerId);
+  };
+  const options = [
     {
-      id: 'variant=1',
-      text: 'Ваш ответ 1'
+      id: 'answer-option-1',
+      text: 'Ваш ответ 1',
+      src: './img/laugh.png',
+      alt: 'laugh',
     },
     {
-      id: 'variant=2',
-      text: 'Ваш ответ 2'
+      id: 'answer-option-2',
+      text: 'Ваш ответ 2',
+      src: './img/hearts.png',
+      alt: 'hearts',
     },
     {
-      id: 'variant=3',
-      text: 'Ваш ответ 3'
+      id: 'answer-option-3',
+      text: 'Ваш ответ 3',
+      src: './img/smirk.png',
+      alt: 'smirk',
     },
     {
-      id: 'variant=4',
-      text: 'Ваш ответ 4'
-    }
-  ]
-
+      id: 'answer-option-4',
+      text: 'Ваш ответ 4',
+      src: './img/fright.png',
+      alt: 'fright',
+    },
+  ];
   return (
-    <div className="container">
-      <div className="wrapper">
-        <div className="emoji-quiz">
-          <Indicator progress={3}/>
-          <div className="question">
-            <Header type='h2' headerText="3. Занимательный вопрос"/>
-            <ul className="emoji-variants">
-            {
-              answerTypes.map(answerItem => (
-                <EmojiAnswerItem 
-                  key={answerItem.id}
-                  id={answerItem.id} 
-                  answerText={answerItem.text}
-                  isChecked={checkedItem === answerItem.id}
-                  onChange={(e) => setCheckedItem(e.target.value)}
+    <div>
+      <div className="container">
+        <div className="wrapper">
+          <div className="emoji-quiz">
+            <Indicator progress="3" />
+            <div className="question">
+              <Heading headingType="h2" text="3. Занимательный вопрос" />
+              <ul className="emoji-variants">
+                {options.map((element) => (
+                  <ImgVariantWrapper
+                    key={element.id}
+                    id={element.id}
+                    labelText={element.text}
+                    src={element.src}
+                    checked={checkedAnswer === element.id}
+                    onChange={() => handleCheck(element.id)}
                   />
-                  
-              ))
-            }
-            </ul>
-              <LinkButton 
-                isDisabled={!checkedItem} 
-                to='/step-four' 
-                linkState={4} 
-                buttonLabel="Далее"/>
+                ))}
+              </ul>
+              <LinkButton buttonText='Далее' path="/step-four" disabled={!checkedAnswer} />
+            </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default StepThree;

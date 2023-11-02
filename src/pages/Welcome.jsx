@@ -1,123 +1,81 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import {useNavigate} from "react-router-dom"
-import { AppButton } from "../components/AppButton";
-import { AppInput } from "../components/AppInput";
-import {Header} from "../components/Header"
+import React, { useEffect, useState } from "react";
+import { Heading } from "../components/typography/heading";
+import { AppInput } from "../components/UI/AppInput";
+import { LinkButton } from "../components/UI/LinkButton";
 
-const Welcome = () => {
-  const [userName, setUsername] = useState(null)
-  const [userPhone, setUserPhone] = useState(null)
+function Welcome() {
+  const [nameValue, setNameValue] = useState("");
+  const [phoneNumberValue, setPhoneNumberValue] = useState("");
 
-  const [userNameError, setUserNameError] = useState(false)
-  const [userPhoneError, setUserPhoneError] = useState(false)
-
-
-  const hasError = userNameError || userPhoneError
-  const isNextButtonDisabled = !userName || !userPhone || hasError
+  const [nameError, setNameError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
 
   useEffect(() => {
-    const rawUserData = localStorage.getItem('userData')
-    console.log(rawUserData)
-
-    const { userName, userPhone } = JSON.parse (rawUserData)
-
-    if (userName) {
-      setUsername(userName)
+    if (!nameValue) {
+      setNameError(true);
+    } else {
+      setNameError(false);
     }
+  }, [nameValue]);
 
-    if (userPhone) {
-      setUserPhone(userPhone)
+  useEffect(() => {
+    if (!phoneNumberValue) {
+      setPhoneError(true);
+    } else {
+      setPhoneError(false);
     }
-  }, [])
+  }, [phoneNumberValue]);
 
-  const navigate = useNavigate()
-
-  const validateUsername = (e) => {
-    const regex = /^[a-zA-Zа-яА-Я]+$/
-
-    if (regex.test(e.target.value)) {
-      setUserNameError(false)
-    }else {
-      setUserNameError(true)
-    }
-
-    setUsername(e.target.value)
-  }
-
-  const validateUserPhone = (e) => {
-    const regex = /^(?:\+998)?(?:\d{2})?(?:\d{7})$/
-
-    if(regex.test(e.target.value)) {
-      if(userPhoneError) {
-        setUserPhoneError(false)
-      }
-    }else{
-      setUserPhoneError(true)
-    }
-
-    setUserPhone(e.target.value)
-  }
-
-  const submitForm = () => {
-    const userData = {
-      userName: userName,
-      userPhone: userPhone
-    }
-
-    if (userName && userPhone) {
-      localStorage.setItem('userData', JSON.stringify(userData))
-    }
-    navigate('/step-one', {
-      state: {
-        'progress': 1
-      }
-    })
-  }
+  const isNextButtonDisabled = nameError || phoneError
 
   return (
-    <div className="container">
-      <div className="wrapper">
-        <div className="welcome">
-          <Header type="h1" headerText="Добро пожаловать в квиз от лучшего учебного центра"/>
-          <form className="welcome__form">
-            <AppInput 
-              id="username"
-              isRequired={true}
-              name="username"
-              type="text"
-              labelText="Ваше имя"
-              placeholderText="Ваш ответ"
-              errorText="Имя должно содержать только буквы"
-              onChange={validateUsername}
-              hasError={userNameError}
-              value={userName}
+    <div>
+      <div className="container">
+        <div className="wrapper">
+          <div className="welcome">
+            <Heading
+              headingType="h1"
+              text="Добро пожаловать в квиз от лучшего учебного центра "
             />
+            <div className="welcome__form">
+              <AppInput
+                InputLabel="Ваше имя"
+                isRequired={true}
+                inputType="text"
+                inputName="username"
+                inputId="username"
+                inputPlaceholder="Ваш ответ"
+                errorText="Введите номер в правильном формате"
+                inputValue={nameValue}
+                onInputChange={(e) => setNameValue(e.target.value)}
+                isError={nameError}
+              />
+              <AppInput
+                InputLabel="Ваш номер"
+                isRequired={true}
+                inputType="tel"
+                inputName="phone"
+                inputId="phone"
+                inputPlaceholder="+998 9- --- -- --"
+                errorText="Введите номер в правильном формате"
+                inputValue={phoneNumberValue}
+                onInputChange={(e) => setPhoneNumberValue(e.target.value)}
+                isError={phoneError}
+              />
 
-            <AppInput 
-              id="phone"
-              isRequired={true}
-              name="phone"
-              type="tel"
-              labelText="Ваш номер"
-              placeholderText="+998 9- --- -- -- "
-              errorText="Введите номер в правильном формате"
-              onChange={validateUserPhone}
-              hasError={userPhoneError}
-              value={userPhone}
-            />
-            <AppButton
-              isDisabled={isNextButtonDisabled}
-              type="submit"
-              id="next-btn"
-              buttonText="Далее"
-              onClick={submitForm}
-            />
-          </form>
+              <LinkButton
+                buttonText="Далее"
+                path="/step-one"
+                type="submit"
+                isDisabled={isNextButtonDisabled}
+                isSubmit={true}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Welcome;

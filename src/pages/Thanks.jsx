@@ -1,25 +1,26 @@
-import React from "react";
-import { AppButton } from "../components/AppButton";
-import { Header } from "../components/Header";
-import { Paragraph } from "../components/Paragraph";
+import React from 'react';
 
-const Thanks = () => {
+import { Heading } from '../components/typography/heading';
+import { AppButton } from '../components/UI/AppButton';
+
+function Thanks() {
   return (
-    <div className="container">
-      <div className="wrapper">
-        <div className="thanks">
-          <img src="./img/bell.png" alt="bell" />
-          <Header type="h1" headerText="Спасибо за прохождение опроса!"/>
-          <Paragraph paragraphText="Получи свою скидку по ссылке ниже или другое блаблабла"/>
-          <AppButton
-                type="submit"
-                id="get-link"
-                buttonText="Получить ссылку"
-          />
+    <div>
+      <div className="container">
+        <div className="wrapper">
+          <div className="thanks">
+            <img src="./img/bell.png" alt="bell" />
+            <Heading headingType="h2 " text="Спасибо за прохождение опроса!" />
+            <Heading
+              headingType="p"
+              text="Получи свою скидку по ссылке ниже или другое блаблабла"
+            />
+            <AppButton id="get-link" text="Получить ссылку" />
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Thanks
+export default Thanks;
