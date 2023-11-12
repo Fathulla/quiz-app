@@ -1,68 +1,90 @@
-import React, { useState } from 'react';
-import { Indicator } from '../components/UI/indicator';
-import { Heading } from '../components/typography/heading';
-import { LinkButton } from '../components/UI/LinkButton';
-import { ImgVariantWrapper } from '../components/UI/imgVariantWrapper';
+import React, { useState } from "react";
+import { Heading } from "../components/Heading";
+import { EmojiAnswerItem } from "../components/EmojiAnswerItem";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../components/Button";
 
-function StepThree() {
+const StepThree = () => {
+  const navigate = useNavigate();
+
   const [checkedAnswer, setCheckedAnswer] = useState(null);
 
-  const handleCheck = (answerId) => {
-    setCheckedAnswer(answerId);
-  };
-  const options = [
+  const variants = [
     {
-      id: 'answer-option-1',
-      text: 'Ваш ответ 1',
-      src: './img/laugh.png',
-      alt: 'laugh',
+      answerText: "Ваш ответ 1",
+      id: "variant-1",
+      src: "./img/laugh.png",
+      alt: "laugh",
     },
     {
-      id: 'answer-option-2',
-      text: 'Ваш ответ 2',
-      src: './img/hearts.png',
-      alt: 'hearts',
+      answerText: "Ваш ответ 2",
+      id: "variant-2",
+      src: "./img/hearts.png",
+      alt: "hearts",
     },
     {
-      id: 'answer-option-3',
-      text: 'Ваш ответ 3',
-      src: './img/smirk.png',
-      alt: 'smirk',
+      answerText: "Ваш ответ 3",
+      id: "variant-3",
+      src: "./img/smirk.png",
+      alt: "smirk",
     },
     {
-      id: 'answer-option-4',
-      text: 'Ваш ответ 4',
-      src: './img/fright.png',
-      alt: 'fright',
+      answerText: "Ваш ответ 4",
+      id: "variant-4",
+      src: "./img/fright.png",
+      alt: "fright",
     },
   ];
+
+  const clickHandler = () => {
+    if (checkedAnswer) {
+      navigate("/step-four");
+    }
+  };
+
   return (
-    <div>
-      <div className="container">
-        <div className="wrapper">
-          <div className="emoji-quiz">
-            <Indicator progress="3" />
-            <div className="question">
-              <Heading headingType="h2" text="3. Занимательный вопрос" />
-              <ul className="emoji-variants">
-                {options.map((element) => (
-                  <ImgVariantWrapper
-                    key={element.id}
-                    id={element.id}
-                    labelText={element.text}
-                    src={element.src}
-                    checked={checkedAnswer === element.id}
-                    onChange={() => handleCheck(element.id)}
-                  />
-                ))}
-              </ul>
-              <LinkButton buttonText='Далее' path="/step-four" disabled={!checkedAnswer} />
+    <div className="container">
+      <div className="wrapper">
+        <div className="emoji-quiz">
+          <div className="indicator">
+            <div className="indicator__text">
+              <span className="indicator__description">
+                Скидка за прохождение опроса:
+              </span>
+              <span className="indicator__value">15%</span>
             </div>
+            <div className="indicator__progressbar">
+              <div className="indicator__unit indicator__unit-1 _active"></div>
+              <div className="indicator__unit indicator__unit-2 _active"></div>
+              <div className="indicator__unit indicator__unit-3"></div>
+              <div className="indicator__unit indicator__unit-4"></div>
+            </div>
+          </div>
+          <div className="question">
+            <Heading headingType="h2" text="3. Занимательный вопрос" />
+
+            <ul className="emoji-variants">
+              {variants.map((elem) => (
+                <EmojiAnswerItem
+                  answerText={elem.answerText}
+                  id={elem.id}
+                  src={elem.src}
+                  alt={elem.alt}
+                  onChange={() => setCheckedAnswer(elem.id)}
+                />
+              ))}
+            </ul>
+            <Button
+              buttonType="button"
+              id="next-btn"
+              buttonText="Далее"
+              onClick={clickHandler}
+            />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default StepThree;

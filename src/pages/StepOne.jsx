@@ -1,56 +1,71 @@
-import React, { useEffect, useState } from "react";
-import { AppInput } from "../components/UI/AppInput";
-import { Indicator } from "../components/UI/indicator";
-import { Heading } from "../components/typography/heading";
-import { LinkButton } from "../components/UI/LinkButton";
+import React, { useState } from "react";
+import { Heading } from "../components/Heading";
+import { Input } from "../components/Input";
+import { Button } from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
-function StepOne() {
-  const [answerValue, setAnswerValue] = useState("");
+const StepOne = () => {
+  const navigate = useNavigate()
 
+  const [answerValue, setAnswerValue] = useState('');
   const [answerError, setAnswerError] = useState(false);
 
-  useEffect(() => {
+  const validateAnswer = () => {
     if (!answerValue) {
-      setAnswerError(true);
+      setAnswerError(true)
     } else {
-      setAnswerError(false);
+      setAnswerError(false)
     }
-  }, [answerValue]);
+  }
 
-  const isNextButtonDisabled = answerError
+  const clickHandler = () => {
+    validateAnswer()
+    if (answerValue) {
+      navigate('/step-two')
+    }
+  }
 
   return (
-    <div>
-      <div className="container">
-        <div className="wrapper">
-          <div className="single-input-quiz">
-            <Indicator progress="1" />
-            <div className="question">
-              <Heading headingType="h2" text="1. Занимательный вопрос" />
-              <AppInput
-                InputLabel="Ваш ответ"
-                isRequired={true}
-                inputType="text"
-                inputName="answer"
-                inputId="answer"
-                inputPlaceholder="Ваш ответ"
-                errorText="Введите номер в правильном формате"
-                inputValue={answerValue}
-                onInputChange={(e) => setAnswerValue(e.target.value)}
-                isError={answerError}
-              />
-              <LinkButton
-                buttonText="Далее"
-                path="/step-two"
-                type="submit"
-                isDisabled={isNextButtonDisabled}
-              />
+    <div className="container">
+      <div className="wrapper">
+        <div className="single-input-quiz">
+          <div className="indicator">
+            <div className="indicator__text">
+              <span className="indicator__description">
+                Скидка за прохождение опроса:
+              </span>
+              <span className="indicator__value">15%</span>
             </div>
+            <div className="indicator__progressbar">
+              <div className="indicator__unit indicator__unit-1"></div>
+              <div className="indicator__unit indicator__unit-2"></div>
+              <div className="indicator__unit indicator__unit-3"></div>
+              <div className="indicator__unit indicator__unit-4"></div>
+            </div>
+          </div>
+          <div className="question">
+            <Heading headingType="h2" text="1. Занимательный вопрос" />
+            <Input
+              hasError={answerError}
+              value={answerValue}
+              onChange={setAnswerValue}
+              isRequired
+              inputPlaceholder="Ваш ответ"
+              id="answer"
+              inputType="text"
+              errorMessage="Введите номер в правильном формате например"
+            />
+            <Button
+              buttonType="button"
+              id="next-btn"
+              buttonText="Далее"
+              onClick={clickHandler}
+            />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default StepOne;

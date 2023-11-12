@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 * {
   margin: 0;
   padding: 0;
@@ -9,13 +8,14 @@
 }
 
 body {
-  font-family: 'TT Hoves';
+  font-family: "TT Hoves";
   font-size: 16px;
   height: 100vh;
-  color: var(--text-color);
-  transition: color 400ms linear;
-  background-color: var(--backround-color);
-  transition: background-color 400ms linear;
+  color: #22222a;
+}
+
+#root, .App {
+  height: 100%;
 }
 
 h1 {
@@ -27,8 +27,7 @@ h1 {
 }
 
 h2 {
-  color: var(--text-color);
-  transition: color 400ms linear;
+  color: #000;
   font-size: 22px;
   font-style: normal;
   font-weight: 400;
@@ -41,8 +40,7 @@ a {
 }
 
 .container {
-  padding: 10px 45px;
-  min-height: 100vh;
+  padding: 0 45px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -51,8 +49,7 @@ a {
 
 .wrapper {
   width: 338px;
-  display: flex;
-  justify-content: center;
+  margin: 0 auto;
 }
 
 #tehnikum-logo {
@@ -101,10 +98,6 @@ input {
   width: 100%;
   padding: 12px 0;
   border-bottom: 1px solid #aeb4c2;
-  background-color: transparent;
-  transition: color 400ms linear;
-  color: var(--text-color);
-  transition: color 400ms linear;
 }
 input::-moz-placeholder {
   color: #5a6684;
@@ -129,49 +122,31 @@ input:disabled::placeholder {
 button {
   cursor: pointer;
   width: 100%;
+  border: 2px solid transparent;
   border-radius: 50px;
-  background-color: var(--active-button-color);
-  transition: background-color 400ms linear;
+  background-color: #a497f9;
   color: white;
   padding: 22.5px 0;
   transition: 200ms;
 }
 button:disabled {
-  background-color: var(--button-disabled);
-  transition: background-color 400ms linear;
+  background-color: #b8bcc5;
 }
 button:enabled:hover {
-  background-color: rgb(122, 112, 186);
-  transform: scale(1.05);
+  background-color: transparent;
+  border-color: #a497f9;
+  color: #a497f9;
+  box-shadow: 0 0 20px #a497f9;
 }
-button:disabled:hover,
-button:disabled:active {
-  background-color: var(--button-disabled-hover);
-  transition: background-color 400ms linear;
-  animation: errorAnim 300ms;
+button:disabled:hover, button:disabled:active {
+  opacity: 0.5;
+  cursor: default;
 }
 button:enabled:active {
-  transform: scale(0.9);
   transition: 100ms;
+  box-shadow: none;
 }
 
-@keyframes errorAnim {
-  0% {
-    margin-left: -10px;
-  }
-  25% {
-    margin-left: 10px;
-  }
-  50% {
-    margin-left: -10px;
-  }
-  75% {
-    margin-left: 10px;
-  }
-  100% {
-    margin-left: 0;
-  }
-}
 .indicator {
   position: fixed;
   top: 70px;
@@ -196,9 +171,8 @@ button:enabled:active {
   border-radius: 161px;
 }
 .indicator__unit._active {
-  background-color: var(--indicator-active);
-  transition: color 400ms linear;
-  border: 1px solid #aeb4c2;
+  background-color: #ffeb80;
+  border: 0;
 }
 
 .welcome h1 {
@@ -216,7 +190,7 @@ button:enabled:active {
 .question h2 {
   margin-bottom: 32px;
 }
-.question input[type='text'] {
+.question input[type=text] {
   margin-bottom: 32px;
 }
 
@@ -227,7 +201,7 @@ button:enabled:active {
 .variants .variant-wrapper:not(:last-child) {
   margin-bottom: 16px;
 }
-.variants .variant-wrapper input[type='radio'] {
+.variants .variant-wrapper input[type=radio] {
   display: none;
 }
 .variants .variant-wrapper label {
@@ -239,17 +213,15 @@ button:enabled:active {
   border-radius: 8px;
   transition: 200ms;
 }
-.variants .variant-wrapper input[type='radio']:checked + label {
-  border-color: var(--active-button-color);
-  transition: border-color 400ms linear;
-  background-color: var(--active-color);
-  transition: color 400ms linear;
+.variants .variant-wrapper input[type=radio]:checked + label {
+  border-color: #a497f9;
+  background-color: #f3f2ff;
 }
 
 .question h2 {
   margin-bottom: 32px;
 }
-.question input[type='text'] {
+.question input[type=text] {
   margin-bottom: 32px;
 }
 
@@ -257,13 +229,13 @@ button:enabled:active {
   list-style: none;
   margin-bottom: 32px;
   display: grid;
-  grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+  grid-template: repeat(2, 1fr)/repeat(2, 1fr);
   gap: 16px;
 }
 .emoji-variants .variant-wrapper {
   cursor: pointer;
 }
-.emoji-variants .variant-wrapper input[type='radio'] {
+.emoji-variants .variant-wrapper input[type=radio] {
   display: none;
 }
 .emoji-variants .variant-wrapper label {
@@ -281,23 +253,21 @@ button:enabled:active {
 }
 .emoji-variants .variant-wrapper label img {
   -o-object-fit: cover;
-  object-fit: cover;
+     object-fit: cover;
   margin-bottom: 20px;
 }
 .emoji-variants .variant-wrapper label p {
   width: 100%;
 }
-.emoji-variants .variant-wrapper input[type='radio']:checked + label {
-  border-color: var(--active-button-color);
-  transition: border-color 400ms linear;
-  background-color: var(--active-color);
-  transition: color 400ms linear;
+.emoji-variants .variant-wrapper input[type=radio]:checked + label {
+  border-color: #a497f9;
+  background-color: #f3f2ff;
 }
 
 .question h2 {
   margin-bottom: 32px;
 }
-.question input[type='text'] {
+.question input[type=text] {
   margin-bottom: 32px;
 }
 
@@ -311,7 +281,7 @@ button:enabled:active {
 .level-variants .variant-wrapper {
   flex: 1 1 20%;
 }
-.level-variants .variant-wrapper input[type='radio'] {
+.level-variants .variant-wrapper input[type=radio] {
   display: none;
 }
 .level-variants .variant-wrapper label {
@@ -331,20 +301,18 @@ button:enabled:active {
 }
 .level-variants .variant-wrapper label img {
   -o-object-fit: cover;
-  object-fit: cover;
+     object-fit: cover;
   margin-bottom: 20px;
 }
 .level-variants .variant-wrapper label p {
   width: 100%;
 }
-.level-variants .variant-wrapper input[type='radio']:checked + label {
-  border-color: var(--active-button-color);
-  transition: border-color 400ms linear;
-  background-color: var(--active-color);
-  transition: color 400ms linear;
+.level-variants .variant-wrapper input[type=radio]:checked + label {
+  border-color: #a497f9;
+  background-color: #f3f2ff;
 }
 .level-variants .variant-wrapper label::after {
-  content: '';
+  content: "";
   text-align: center;
   white-space: nowrap;
   position: absolute;
@@ -355,26 +323,20 @@ button:enabled:active {
   font-size: 12px;
   width: 100%;
 }
-.level-variants .variant-wrapper label[for='variant-1']::after {
-  content: 'скорее нет';
-  color: var(--text-color);
-  transition: color 400ms linear;
+.level-variants .variant-wrapper label[for=variant-1]::after {
+  content: "скорее нет";
 }
-.level-variants .variant-wrapper label[for='variant-3']::after {
-  content: 'не знаю';
-  color: var(--text-color);
-  transition: color 400ms linear;
+.level-variants .variant-wrapper label[for=variant-3]::after {
+  content: "не знаю";
 }
-.level-variants .variant-wrapper label[for='variant-5']::after {
-  content: 'скорее да';
-  color: var(--text-color);
-  transition: color 400ms linear;
+.level-variants .variant-wrapper label[for=variant-5]::after {
+  content: "скорее да";
 }
 
 .thanks img {
   width: 160px;
   -o-object-fit: cover;
-  object-fit: cover;
+     object-fit: cover;
   display: block;
   margin: 0 auto 60px;
 }
@@ -385,73 +347,4 @@ button:enabled:active {
   font-size: 18px;
   text-align: center;
   margin-bottom: 16px;
-}
-#root {
-  height: 100%;
-}
-.App {
-  height: 100vh;
-}
-
-.themeButton {
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.themeSwitcher {
-  margin-top: 20px;
-  margin-right: 20px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  box-sizing: border-box;
-}
-
-input[type='checkbox'] {
-  outline: none;
-  -webkit-appearance: none;
-  appearance: none;
-  height: 32px;
-  width: 56px;
-  border-radius: 32px;
-  border: 2px solid #e5e5e5;
-  transition: all 0.4s ease;
-  &::before {
-    cursor: pointer;
-    content: '';
-    width: 28px;
-    height: 28px;
-    background: white;
-    display: block;
-    border-radius: 100px;
-    box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.4);
-    transition: all 0.3s ease;
-  }
-  &:active {
-    box-shadow: 0px 0px 0px 13px rgba(0, 0, 0, 0.1) inset;
-    transition:
-      box-shadow 0.2s ease-out,
-      border-color 0.2s ease-out 0.02s;
-    &::before {
-      width: 38px;
-    }
-  }
-  &:checked {
-    box-shadow: inset 0 0 0 15px rgba(0, 0, 0, 0.1);
-    background: #554f7b;
-    border-color: #554f7b;
-    &::before {
-      transform: translateX(24px);
-    }
-    &:active {
-      &::before {
-        width: 38px;
-        transform: translateX(16px);
-      }
-    }
-  }
-}
+}/*# sourceMappingURL=main.css.map */

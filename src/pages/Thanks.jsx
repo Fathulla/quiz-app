@@ -1,26 +1,24 @@
-import React from 'react';
+import React from "react";
+import { Heading } from "../components/Heading";
+import { useNavigate } from "react-router-dom";
 
-import { Heading } from '../components/typography/heading';
-import { AppButton } from '../components/UI/AppButton';
+const Thanks = () => {
+  const navigate = useNavigate()
 
-function Thanks() {
   return (
-    <div>
-      <div className="container">
-        <div className="wrapper">
-          <div className="thanks">
-            <img src="./img/bell.png" alt="bell" />
-            <Heading headingType="h2 " text="Спасибо за прохождение опроса!" />
-            <Heading
-              headingType="p"
-              text="Получи свою скидку по ссылке ниже или другое блаблабла"
-            />
-            <AppButton id="get-link" text="Получить ссылку" />
-          </div>
+    <div className="container">
+      <div className="wrapper">
+        <div className="thanks">
+          <img src="./img/bell.png" alt="bell" />
+          <Heading headingType='h1' text='Спасибо за прохождение опроса!'/>
+          <p>Получи свою скидку по ссылке ниже или другое блаблабла</p>
+          <button onClick={() => navigate('/')} type="button" id="get-link">
+            Получить ссылку
+          </button>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Thanks;

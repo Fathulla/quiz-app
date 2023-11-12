@@ -1,61 +1,73 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { ProgressBar } from "../components/ProgressBar";
+import { AnswerItem } from "../components/AnswerItem";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../components/Button";
+import { Heading } from "../components/Heading";
 
-import { Indicator } from '../components/UI/indicator';
-import { VariantWrapper } from '../components/UI/variantWrapper';
-import { LinkButton } from '../components/UI/LinkButton';
-import { Heading } from '../components/typography/heading';
+const StepTwo = () => {
+  const navigate = useNavigate();
 
-function StepTwo() {
   const [checkedAnswer, setCheckedAnswer] = useState(null);
 
-  const handleCheck = (answerId) => {
-    setCheckedAnswer(answerId);
-  };
-  const options = [
+  const variants = [
     {
-      id: 'answer-option-1',
-      text: 'Ваш ответ 1',
+      id: "variant-1",
+      answerLabel: "Ответ №1",
     },
     {
-      id: 'answer-option-2',
-      text: 'Ваш ответ 2',
+      id: "variant-2",
+      answerLabel: "Ответ №2",
     },
     {
-      id: 'answer-option-3',
-      text: 'Ваш ответ 3',
+      id: "variant-3",
+      answerLabel: "Ответ №3",
     },
     {
-      id: 'answer-option-4',
-      text: 'Ваш ответ 4',
+      id: "variant-4",
+      answerLabel: "Ответ №4",
     },
   ];
+
+  const clickHandler = () => {
+    if (checkedAnswer) {
+      navigate("/step-three");
+    }
+  };
+
+  useEffect(() => {
+    console.log("Ваш ответ: ", checkedAnswer);
+  }, [checkedAnswer]);
+
   return (
-    <div>
-      <div className="container">
-        <div className="wrapper">
-          <div className="variants-quiz">
-            <Indicator progress="2" />
-            <div className="question">
-              <Heading headingType="h2" text="2. Занимательный вопрос" />
-              <ul className="variants">
-                {options.map((element) => (
-                  <VariantWrapper
-                    key={element.id}
-                    id={element.id}
-                    labelText={element.text}
-                    checked={checkedAnswer === element.id}
-                    onChange={() => handleCheck(element.id)}
-                  />
-                ))}
-              </ul>
-              
-              <LinkButton buttonText='Далее' path="/step-three" disabled={!checkedAnswer} />
-            </div>
+    <div className="container">
+      <div className="wrapper">
+        <div className="variants-quiz">
+          <ProgressBar />
+          <div className="question">
+            <Heading headingType='h2' text='2. Занимательный вопрос'/>
+            <ul className="variants">
+              {variants.map((elem) => (
+                <AnswerItem
+                  key={elem.id}
+                  id={elem.id}
+                  answerLabel={elem.answerLabel}
+                  onChange={() => setCheckedAnswer(elem.id)}
+                  isChecked={elem.id === checkedAnswer}
+                />
+              ))}
+            </ul>
+            <Button
+              buttonType="button"
+              id="next-btn"
+              buttonText="Далее"
+              onClick={clickHandler}
+            />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default StepTwo;

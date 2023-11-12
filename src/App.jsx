@@ -1,22 +1,46 @@
-import React, { useState } from 'react';
-import './styles/main.css';
-import Welcome from './pages/Welcome';
-import StepOne from './pages/StepOne';
-import StepTwo from './pages/StepTwo';
-import StepThree from './pages/StepThree';
-import StepFour from './pages/StepFour';
+import React from "react";
+import "./styles/main.css";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Welcome from "./pages/Welcome";
+import StepTwo from "./pages/StepTwo";
+import StepOne from "./pages/StepOne";
+import StepFour from "./pages/StepFour";
+import StepThree from "./pages/StepThree";
+import Thanks from "./pages/Thanks";
 
-function App() {
-  const [step, setStep] = useState(0);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Welcome />,
+  },
+  {
+    path: "/step-one",
+    element: <StepOne />,
+  },
+  {
+    path: "/step-two",
+    element: <StepTwo />,
+  },
+  {
+    path: "/step-three",
+    element: <StepThree />,
+  },
+  {
+    path: "/step-four",
+    element: <StepFour />,
+  },
+  {
+    path: "/thanks",
+    element: <Thanks />,
+  },
+]);
+
+const App = () => {
   return (
-    <div className="App">
-      {step === 0 && <Welcome onStepChange={() => setStep(1)} />}
-      {step === 1 && <StepOne onStepChange={() => setStep(2)} />}
-      {step === 2 && <StepTwo onStepChange={() => setStep(3)} />}
-      {step === 3 && <StepThree onStepChange={() => setStep(4)} />}
-      {step === 4 && <StepFour />}
-    </div>
+    <RouterProvider router={router}>
+      <div className="App"></div>
+    </RouterProvider>
   );
-}
+};
 
 export default App;
