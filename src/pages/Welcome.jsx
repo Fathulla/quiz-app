@@ -50,6 +50,7 @@ const Welcome = () => {
             <Input
               hasError={nameError}
               value={nameValue}
+              
               onChange={setNameValue}
               id="username"
               isRequired
