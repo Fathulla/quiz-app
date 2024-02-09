@@ -3,32 +3,34 @@ import { Heading } from "../components/Heading";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
+import { ProgressBar } from "../components/ProgressBar";
 
 const StepOne = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [answerValue, setAnswerValue] = useState('');
+  const [answerValue, setAnswerValue] = useState("");
   const [answerError, setAnswerError] = useState(false);
 
   const validateAnswer = () => {
     if (!answerValue) {
-      setAnswerError(true)
+      setAnswerError(true);
     } else {
-      setAnswerError(false)
+      setAnswerError(false);
     }
-  }
+  };
 
   const clickHandler = () => {
-    validateAnswer()
+    validateAnswer();
     if (answerValue) {
-      navigate('/step-two')
+      navigate("/step-two");
     }
-  }
+  };
 
   return (
     <div className="container">
       <div className="wrapper">
         <div className="single-input-quiz">
+          <ProgressBar currentStep={1} />
           <div className="indicator">
             <div className="indicator__text">
               <span className="indicator__description">

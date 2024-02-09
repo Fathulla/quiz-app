@@ -3,9 +3,10 @@ import { Heading } from "../components/Heading";
 import { Button } from "../components/Button";
 import { LevelVariant } from "../components/LevelVariant";
 import { useNavigate } from "react-router-dom";
+import { ProgressBar } from "../components/ProgressBar";
 
 const StepFour = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [checkedAnswer, setCheckedAnswer] = useState();
 
@@ -34,7 +35,7 @@ const StepFour = () => {
 
   const clickHandler = () => {
     if (checkedAnswer) {
-      navigate('/thanks')
+      navigate("/thanks");
     }
   };
 
@@ -42,20 +43,7 @@ const StepFour = () => {
     <div className="container">
       <div className="wrapper">
         <div className="emoji-quiz">
-          <div className="indicator">
-            <div className="indicator__text">
-              <span className="indicator__description">
-                Скидка за прохождение опроса:
-              </span>
-              <span className="indicator__value">15%</span>
-            </div>
-            <div className="indicator__progressbar">
-              <div className="indicator__unit indicator__unit-1 _active"></div>
-              <div className="indicator__unit indicator__unit-2 _active"></div>
-              <div className="indicator__unit indicator__unit-3 _active"></div>
-              <div className="indicator__unit indicator__unit-4"></div>
-            </div>
-          </div>
+          <ProgressBar currentStep={4} />
           <div className="question">
             <Heading headingType="h2" text="4. Занимательный вопрос" />
             <ul className="level-variants">

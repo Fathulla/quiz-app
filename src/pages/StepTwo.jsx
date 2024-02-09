@@ -43,9 +43,9 @@ const StepTwo = () => {
     <div className="container">
       <div className="wrapper">
         <div className="variants-quiz">
-          <ProgressBar />
+          <ProgressBar currentStep={2} />
           <div className="question">
-            <Heading headingType='h2' text='2. Занимательный вопрос'/>
+            <Heading headingType="h2" text="2. Занимательный вопрос" />
             <ul className="variants">
               {variants.map((elem) => (
                 <AnswerItem
